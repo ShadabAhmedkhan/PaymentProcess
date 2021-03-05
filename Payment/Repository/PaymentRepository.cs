@@ -17,7 +17,10 @@ namespace Payment.Repository
             _context = context;
 
         }
-
+        public DTO.ProcessPayment makePayment(DTO.ProcessPayment input)
+        {
+            return input;
+        }
         public ApiException ICheapPaymentGateway(DTO.ProcessPayment input)
         {
             throw new NotImplementedException();

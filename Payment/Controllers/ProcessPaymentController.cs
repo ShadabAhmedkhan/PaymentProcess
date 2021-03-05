@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Payment.DTO;
+using Payment.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +14,16 @@ namespace Payment.Controllers
     [ApiController]
     public class ProcessPaymentController : ControllerBase
     {
-        // GET: api/<ProcessPaymentController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly RepositoryWrapper _repository;
+        public ProcessPaymentController(RepositoryWrapper repository)
         {
-            return new string[] { "value1", "value2" };
+            _repository = repository;
         }
-
-        // GET api/<ProcessPaymentController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<ProcessPaymentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] ProcessPayment value)
         {
-        }
-
-        // PUT api/<ProcessPaymentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProcessPaymentController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return StatusCode(201, _repository.paymentRepository.makePayment(value));
         }
     }
 }
