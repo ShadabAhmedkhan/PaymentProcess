@@ -1,4 +1,6 @@
-﻿using Payment.Models;
+﻿using Payment.ErrorHandling;
+using Payment.Interfaces;
+using Payment.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Payment.Repository
 {
-    public class PaymentRepository
+    public class PaymentRepository : PaymentGateway
     {
         private readonly PaymentDbContext _context;
 
@@ -14,6 +16,16 @@ namespace Payment.Repository
         {
             _context = context;
 
+        }
+
+        public ApiException ICheapPaymentGateway(DTO.ProcessPayment input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApiException IExpensivePaymentGateway(DTO.ProcessPayment input)
+        {
+            throw new NotImplementedException();
         }
     }
 }
