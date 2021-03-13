@@ -10,9 +10,9 @@ namespace Payment.Models
     public class ProcessPayment
     {
         [Key]
-        [Column("Id")]
+        [Column("PaymentId")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid PaymentId { get; set; }
         [Column("CreditCardNumber")]
         public string CreditCardNumber { get; set; }
         [Column("CardHolder")]

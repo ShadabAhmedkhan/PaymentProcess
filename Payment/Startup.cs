@@ -8,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Payment.ErrorHandling;
+using Payment.GateWays;
 using Payment.Models;
 using Payment.Repository;
+using Payment.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,11 @@ namespace Payment
             services.AddDbContext<PaymentDbContext>(options => options.UseNpgsql(sqlConnectionString));
             // PGSQL DB CONTEXT
 
+            services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
+            services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
+            services.AddScoped<IPaymentRequestService, PaymentRequestService>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentStateRepository, PaymentStateRepository>();
             services.AddScoped<RepositoryWrapper>();
 
         }
@@ -49,7 +56,7 @@ namespace Payment
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseRouting();
 

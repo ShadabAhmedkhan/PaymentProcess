@@ -14,8 +14,9 @@ namespace Payment.Models
         public Guid Id { get; set; }
         [Column("State")]
         public string State { get; set; }
-        [Column("PPID")]
-        public Guid PPID { get; set; }
+        [Column("PaymentId")]
+        public Guid PaymentId { get; set; }
+        public DateTime CreatedDate { get; set; }
         public ProcessPayment ProcessPayment { get; set; }
     }
 }

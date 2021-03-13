@@ -1,5 +1,7 @@
-﻿using Payment.ErrorHandling;
+﻿using Microsoft.EntityFrameworkCore;
+using Payment.ErrorHandling;
 using Payment.Interfaces;
+using Payment.Mapper;
 using Payment.Models;
 using System;
 using System.Collections.Generic;
@@ -8,27 +10,17 @@ using System.Threading.Tasks;
 
 namespace Payment.Repository
 {
-    public class PaymentRepository : PaymentGateway
+    public class PaymentRepository : GenericRepository<ProcessPayment>, IPaymentRepository
     {
-        private readonly PaymentDbContext _context;
-
-        public PaymentRepository(PaymentDbContext context)
+        public PaymentRepository(PaymentDbContext dbContext) : base(dbContext)
         {
-            _context = context;
 
         }
-        public DTO.ProcessPayment makePayment(DTO.ProcessPayment input)
+        public override async Task<ProcessPayment> GetById(Guid id)
         {
-            return input;
-        }
-        public ApiException ICheapPaymentGateway(DTO.ProcessPayment input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ApiException IExpensivePaymentGateway(DTO.ProcessPayment input)
-        {
-            throw new NotImplementedException();
+            return await _dbContext.Set<ProcessPayment>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.PaymentId ==  id );
         }
     }
 }

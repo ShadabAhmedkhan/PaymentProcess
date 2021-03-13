@@ -9,7 +9,7 @@ namespace Payment.Interfaces
 {
     interface PaymentGateway
     {
-        ApiException IExpensivePaymentGateway(ProcessPayment input);
-        ApiException ICheapPaymentGateway(ProcessPayment input);
+        ApiException IExpensivePaymentGateway(PaymentRequestDto input);
+        ApiException ICheapPaymentGateway(PaymentRequestDto input);
     }
 }
