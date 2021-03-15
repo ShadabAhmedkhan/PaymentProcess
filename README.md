@@ -1,7 +1,7 @@
 # Payment Process
 
 Example of POSTMAN call
-Call URL https://localhost:44302/api/pay/ with POST with JSON:
+Call URL https://localhost:44396/ProcessPayment with POST with JSON:
 
 {
 	"creditCardNumber": "5402 6326 4830 4155",
